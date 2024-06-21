@@ -22,23 +22,23 @@ import "../styles/global.css";
   </style>
 </head>
 <body class="h-screen flex flex-col">
-  <header class="absolute top-6 left-6 p-4">
-    <img src="/logo.svg" alt="Tumbil Logo" class="h-12 w-auto" />
+  <header class="absolute top-2 left-2 lg:top-6 lg:left-6 p-4">
+    <img src="/logo.svg" alt="Tumbil Logo" class="logo" />
   </header>
   
   <main class="flex items-center justify-center flex-grow">
-    <div class="text-center">
-      <h1 class="mb-4 text-4xl lg:text-5xl xl:text-7xl">Laundry Reimagined</h1>
-      <p class="w-3/5 mx-auto text-2xl xl:text-2xl">Sign up to become a laundry professional in Toronto and earn up to $6000/month working from home</p>
-      <form class="flex max-w-md mx-auto space-x-3 mt-10">
+    <div class="text-center mx-4">
+      <h1 class="mb-4 text-5xl lg:text-5xl xl:text-8xl">Laundry Reimagined</h1>
+      <p class=" w-4/5 md:w-3/4 mx-auto text-lg xl:text-2xl">Sign up to become a laundry professional in Toronto and earn up to $6000/month working from home</p>
+      <form class="flex flex-col sm:flex-row max-w-lg mx-auto space-y-3 sm:space-y-0 sm:space-x-3 mt-10 px-4 sm:px-0">
         <input 
-          type="email" 
-          placeholder="Enter your email" 
-          class="flex-grow px-4 h-18 py-2 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+            type="email" 
+            placeholder="Email" 
+            class="flex-grow px-4 h-12 py-2 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
         />
         <button 
-          type="submit" 
-          class="px-4 h-18 py-2 bg-blue-600 text-white rounded-2xl hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+            type="submit" 
+            class="px-4 h-12 py-2 bg-blue-600 text-white rounded-2xl hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
         >
           Let's do this
         </button>
