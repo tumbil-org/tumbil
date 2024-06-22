@@ -26,21 +26,24 @@ import "../styles/global.css";
     <img src="/logo.svg" alt="Tumbil Logo" class="logo" />
   </header>
   
-  <main class="flex items-center justify-center flex-grow">
+  <main class="mt-16 sm:mt-10 flex items-center justify-center flex-grow">
     <div class="text-center mx-4">
-      <h1 class="mb-4 text-5xl lg:text-5xl xl:text-8xl">Laundry Reimagined</h1>
-      <p class=" w-4/5 md:w-3/4 mx-auto text-lg xl:text-2xl">Sign up to become a laundry professional in Toronto and earn up to $6000/month working from home</p>
-      <form class="flex flex-col sm:flex-row max-w-lg mx-auto space-y-3 sm:space-y-0 sm:space-x-3 mt-10 px-4 sm:px-0">
+      <h1 class="mb-4 text-6xl lg:text-7xl xl:text-8xl">Laundry Reimagined</h1>
+      <p class=" w-5/6 md:w-3/4 mx-auto text-lg xl:text-2xl">Sign up to become a Toronto laundry professional earn up to $6000/month working from home</p>
+      <form class="flex flex-col sm:flex-row max-w-lg mx-5 sm:mx-auto space-y-3 sm:space-y-0 sm:space-x-3 mt-7 px-4 sm:px-0">
         <input 
             type="email" 
             placeholder="Email" 
-            class="flex-grow px-4 h-12 py-2 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+            class="flex-grow text-gray-900 px-4 h-12 py-2 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
         />
         <button 
             type="submit" 
-            class="px-4 h-12 py-2 bg-blue-600 text-white rounded-2xl hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+            class="px-9 h-12 pt-1 bg-blue-500 shadow-black/25 shadow-md 
+            hover:shadow-black/40 hover:shadow-lg
+            text-white rounded-2xl active:bg-blue-400
+            transition-all duration-300"
         >
-          Let's do this
+          Let's go
         </button>
       </form>
     </div>
