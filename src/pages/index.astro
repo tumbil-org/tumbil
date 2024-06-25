@@ -29,24 +29,58 @@ import "../styles/global.css";
   <main class="mt-16 sm:mt-10 flex items-center justify-center flex-grow">
     <div class="text-center mx-4">
       <h1 class="mb-4 text-6xl lg:text-7xl xl:text-8xl">Laundry Reimagined</h1>
-      <p class=" w-5/6 md:w-3/4 mx-auto text-lg xl:text-2xl">Sign up to become a Toronto laundry professional earn up to $6000/month working from home</p>
-      <form class="flex flex-col sm:flex-row max-w-lg mx-5 sm:mx-auto space-y-3 sm:space-y-0 sm:space-x-3 mt-7 px-4 sm:px-0">
+      <p class="w-5/6 md:w-3/4 mx-auto text-lg xl:text-2xl">Sign up to become a Toronto laundry professional earn up to $6000/month working from home</p>
+      <form id="emailForm" class="flex flex-col sm:flex-row max-w-lg mx-5 sm:mx-auto space-y-3 sm:space-y-0 sm:space-x-3 mt-7 px-4 sm:px-0">
         <input 
-            type="email" 
-            placeholder="Email" 
-            class="flex-grow text-gray-900 px-4 h-12 py-2 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+          type="email" 
+          id="emailInput"
+          name="email"
+          placeholder="Email" 
+          required
+          class="flex-grow text-gray-900 px-4 h-12 py-2 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
         />
         <button 
-            type="submit" 
-            class="px-9 h-12 pt-1 bg-blue-500 shadow-black/25 shadow-md 
-            hover:shadow-black/40 hover:shadow-lg
-            text-white rounded-2xl active:bg-blue-400
-            transition-all duration-300"
+          type="submit" 
+          class="px-9 h-12 pt-1 bg-blue-500 shadow-black/25 shadow-md 
+          hover:shadow-black/40 hover:shadow-lg
+          text-white rounded-2xl active:bg-blue-400
+          transition-all duration-300"
         >
           Let's go
         </button>
       </form>
+      <div id="message" class="mt-4 text-lg"></div>
     </div>
   </main>
+
+  <script>
+    document.getElementById('emailForm')?.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const email = (document.getElementById('emailInput') as HTMLInputElement).value;
+      const messageElement = document.getElementById('message');
+  
+      if (!messageElement) return;
+  
+      try {
+        const response = await fetch('https://your-render-api-endpoint.onrender.com/add-contact', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email }),
+        });
+  
+        if (response.ok) {
+          messageElement.textContent = 'Thank you for your interest! We\'ll be in touch soon.';
+          (document.getElementById('emailInput') as HTMLInputElement).value = '';
+        } else {
+          throw new Error('Failed to add contact');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        messageElement.textContent = 'There was an error submitting your email. Please try again.';
+      }
+    });
+  </script>
 </body>
 </html>
