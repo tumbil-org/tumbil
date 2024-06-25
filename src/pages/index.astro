@@ -62,7 +62,7 @@ import "../styles/global.css";
       if (!messageElement) return;
   
       try {
-        const response = await fetch('https://your-render-api-endpoint.onrender.com/add-contact', {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/add-contact`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
