@@ -21,53 +21,190 @@ const apiUrl = import.meta.env.VITE_API_URL;
       padding: 0;
       color: white;
       text-align: center;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .hidden {
+      display: none !important;
+    }
+    .form-input {
+      width: 80%;
+      background-color: transparent;
+      border: 2px solid white;
+      color: white;
+      padding: 10px;
+      margin-bottom: 48px;
+      border-radius: 12px;
+    }
+    .form-input::placeholder {
+      color: rgba(255, 255, 255, 0.7);
+    }
+    .submit-button {
+      width: 80%;
+      background-color: #0079AC;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+    #step1, #step2, #confirmationScreen {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    #step2 .form-container, #confirmationScreen .content {
+      width: 90%;
+      max-width: 500px;
+    }
+    #overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(10px);
+      z-index: -1; /* Ensures the overlay is behind the content */
+    }
+    .blur-overlay {
+      display: none;
+    }
+    .blur-overlay.active {
+      display: block;
     }
   </style>
 </head>
-<body class="h-screen flex flex-col">
-  <header class="absolute top-2 left-2 lg:top-6 lg:left-6 p-4">
-    <img src="/logo.svg" alt="Tumbil Logo" class="logo" />
-  </header>
-  
-  <main class="mt-16 sm:mt-10 flex items-center justify-center flex-grow">
-    <div class="text-center mx-4">
-      <h1 class="mb-4 text-6xl lg:text-7xl xl:text-8xl">Laundry Reimagined</h1>
-      <p class="w-5/6 md:w-3/4 mx-auto text-lg xl:text-2xl">Sign up to become a Toronto laundry professional earn up to $6000/month working from home</p>
-      <form id="emailForm" class="flex flex-col sm:flex-row max-w-lg mx-5 sm:mx-auto space-y-3 sm:space-y-0 sm:space-x-3 mt-7 px-4 sm:px-0">
+<body>
+  <div id="overlay" class="blur-overlay"></div>
+
+  <div id="step1">
+    <header class="absolute top-2 left-2 lg:top-6 lg:left-6 p-4">
+      <img src="/logo.svg" alt="Tumbil Logo" class="logo" />
+    </header>
+    
+    <main class="flex items-center justify-center flex-grow">
+      <div class="text-center mx-4">
+        <h1 class="mb-4 text-6xl lg:text-7xl xl:text-8xl">Laundry Reimagined</h1>
+        <p class="w-5/6 md:w-3/4 mx-auto text-lg xl:text-2xl">Sign up to become a Toronto laundry professional earn up to $6000/month working from home</p>
+        <form id="emailForm" class="flex flex-col sm:flex-row max-w-lg mx-5 sm:mx-auto space-y-3 sm:space-y-0 sm:space-x-3 mt-7 px-4 sm:px-0">
+          <input 
+            type="email" 
+            id="emailInput"
+            name="email"
+            placeholder="Email" 
+            required
+            class="flex-grow text-gray-900 px-4 h-12 py-2 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+          />
+          <button 
+            type="button" 
+            id="nextStep"
+            class="px-9 h-12 pt-1 bg-blue-600 shadow-black/25 shadow-md 
+            hover:shadow-black/40 hover:shadow-lg
+            text-white rounded-2xl active:bg-blue-400
+            transition-all duration-300"
+          >
+            Let's go
+          </button>
+        </form>
+      </div>
+    </main>
+  </div>
+
+  <div id="step2" class="hidden">
+    <div class="form-container">
+      <h2 class="text-3xl mb-8">amazing, just a few questions</h2>
+      <form id="fullForm">
+        <input type="hidden" id="hiddenEmail" name="email" />
         <input 
-          type="email" 
-          id="emailInput"
-          name="email"
-          placeholder="Email" 
+          type="text" 
+          id="firstNameInput"
+          name="firstName"
+          placeholder="first name" 
           required
-          class="flex-grow text-gray-900 px-4 h-12 py-2 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+          class="form-input"
+        />
+        <input 
+          type="text" 
+          id="lastNameInput"
+          name="lastName"
+          placeholder="last name" 
+          required
+          class="form-input"
+        />
+        <input 
+          type="tel" 
+          id="phoneInput"
+          name="phone"
+          placeholder="phone number" 
+          required
+          class="form-input"
+        />
+        <input 
+          type="text" 
+          id="postalCodeInput"
+          name="postalCode"
+          placeholder="postal code" 
+          required
+          class="form-input"
         />
         <button 
           type="submit" 
-          class="px-9 h-12 pt-1 bg-blue-500 shadow-black/25 shadow-md 
-          hover:shadow-black/40 hover:shadow-lg
-          text-white rounded-2xl active:bg-blue-400
-          transition-all duration-300"
+          class="submit-button"
         >
-          Let's go
+          Submit
         </button>
       </form>
-      <div id="message" class="mt-4 text-lg"></div>
     </div>
-  </main>
+  </div>
+
+  <div id="confirmationScreen" class="hidden">
+    <div class="content">
+      <img src="/logo.svg" alt="Tumbil Logo" class="mx-auto mb-4" style="width: 100px;" />
+      <h2 class="text-3xl mb-4">perfect, we got your info and our team will be in touch soon</h2>
+    </div>
+  </div>
+
+  <div id="message" class="mt-4 text-lg absolute bottom-4 left-0 right-0"></div>
 
   <script define:vars={{ apiUrl }}>
-    console.log('API URL:', apiUrl); // Log the API URL
+    const step1 = document.getElementById('step1');
+    const step2 = document.getElementById('step2');
+    const confirmationScreen = document.getElementById('confirmationScreen');
+    const nextStepButton = document.getElementById('nextStep');
+    const emailInput = document.getElementById('emailInput');
+    const hiddenEmail = document.getElementById('hiddenEmail');
+    const fullForm = document.getElementById('fullForm');
+    const messageElement = document.getElementById('message');
+    const overlay = document.getElementById('overlay');
 
-    document.getElementById('emailForm')?.addEventListener('submit', async function(e) {
+    nextStepButton?.addEventListener('click', function() {
+      if (emailInput instanceof HTMLInputElement && emailInput.checkValidity()) {
+        if (hiddenEmail instanceof HTMLInputElement) {
+          hiddenEmail.value = emailInput.value;
+        }
+        step1?.classList.add('hidden');
+        step2?.classList.remove('hidden');
+        overlay?.classList.add('active');
+      } else if (emailInput instanceof HTMLInputElement) {
+        emailInput.reportValidity();
+      }
+    });
+
+    fullForm?.addEventListener('submit', async function(e) {
       e.preventDefault();
-      const emailInput = document.getElementById('emailInput');
-      const email = emailInput instanceof HTMLInputElement ? emailInput.value : '';
-      const messageElement = document.getElementById('message');
+      const formData = new FormData(fullForm);
+      const formProps = Object.fromEntries(formData);
 
       if (!messageElement) return;
-
-      console.log('Submitting to:', `${apiUrl}/add-contact`); // Log the full submission URL
 
       try {
         const response = await fetch(`${apiUrl}/add-contact`, {
@@ -75,20 +212,36 @@ const apiUrl = import.meta.env.VITE_API_URL;
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ email }),
+          body: JSON.stringify(formProps),
         });
 
+        const result = await response.json();
+        
         if (response.ok) {
-          messageElement.textContent = 'Thank you for your interest! We\'ll be in touch soon.';
-          if (emailInput instanceof HTMLInputElement) emailInput.value = '';
+          step2?.classList.add('hidden');
+          confirmationScreen?.classList.remove('hidden');
         } else {
-          throw new Error('Failed to add contact');
+          handleFormError(result, formProps.email);
         }
       } catch (error) {
         console.error('Error:', error);
-        messageElement.textContent = 'There was an error submitting your email. Please try again.';
+        messageElement.textContent = 'There was an error submitting your form. Please try again.';
+        messageElement.style.color = 'red';
       }
     });
+
+    function handleFormError(result, email) {
+      let userFriendlyMessage;
+
+      if (result.error && result.error.includes('already exists')) {
+        userFriendlyMessage = `A user with your email ${email} already reached out and we'll be in touch soon.`;
+      } else {
+        userFriendlyMessage = 'There was an issue with your submission. Please try again.';
+      }
+
+      messageElement.textContent = userFriendlyMessage;
+      messageElement.style.color = 'red';
+    }
   </script>
 </body>
 </html>
