@@ -1,5 +1,8 @@
 ---
 import "../styles/global.css";
+
+// Access the environment variable in the frontmatter
+const apiUrl = import.meta.env.VITE_API_URL;
 ---
 
 <!DOCTYPE html>
@@ -53,26 +56,31 @@ import "../styles/global.css";
     </div>
   </main>
 
-  <script>
+  <script define:vars={{ apiUrl }}>
+    console.log('API URL:', apiUrl); // Log the API URL
+
     document.getElementById('emailForm')?.addEventListener('submit', async function(e) {
       e.preventDefault();
-      const email = (document.getElementById('emailInput') as HTMLInputElement).value;
+      const emailInput = document.getElementById('emailInput');
+      const email = emailInput instanceof HTMLInputElement ? emailInput.value : '';
       const messageElement = document.getElementById('message');
-  
+
       if (!messageElement) return;
-  
+
+      console.log('Submitting to:', `${apiUrl}/add-contact`); // Log the full submission URL
+
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/add-contact`, {
+        const response = await fetch(`${apiUrl}/add-contact`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({ email }),
         });
-  
+
         if (response.ok) {
           messageElement.textContent = 'Thank you for your interest! We\'ll be in touch soon.';
-          (document.getElementById('emailInput') as HTMLInputElement).value = '';
+          if (emailInput instanceof HTMLInputElement) emailInput.value = '';
         } else {
           throw new Error('Failed to add contact');
         }
