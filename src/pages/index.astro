@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import LaundryLoadingIcon from '../components/LaundryLoadingIcon.astro';
 
 // Access the environment variable in the frontmatter
 const apiUrl = import.meta.env.VITE_API_URL;
@@ -27,7 +28,9 @@ const apiUrl = import.meta.env.VITE_API_URL;
       position: relative;
     }
     .hidden {
-      display: none !important;
+      opacity: 0 !important;
+      transform: scale(0.95) !important;
+      pointer-events: none;
     }
     .form-input {
       width: 80%;
@@ -49,6 +52,22 @@ const apiUrl = import.meta.env.VITE_API_URL;
       padding: 10px;
       border-radius: 12px;
       cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 48px; /* Set a fixed height */
+      margin: 0 auto; /* Center the button */
+    }
+    .submit-button span {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+    }
+    #loadingIcon {
+      width: 24px;
+      height: 24px;
     }
     #step1, #step2, #confirmationScreen {
       position: absolute;
@@ -60,6 +79,9 @@ const apiUrl = import.meta.env.VITE_API_URL;
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      opacity: 1;
+      transform: scale(1);
     }
     #step2 .form-container, #confirmationScreen .content {
       width: 90%;
@@ -73,18 +95,37 @@ const apiUrl = import.meta.env.VITE_API_URL;
       bottom: 0;
       background: rgba(0, 0, 0, 0.45);
       backdrop-filter: blur(10px);
-      z-index: -1; /* Ensures the overlay is behind the content */
+      z-index: -1;
+      transition: opacity 0.5s ease;
+      opacity: 0;
     }
-    .blur-overlay {
-      display: none;
+    #overlay.active {
+      opacity: 1;
     }
-    .blur-overlay.active {
-      display: block;
+    #loadingOverlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.75);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    #loadingOverlay.active {
+      opacity: 1;
     }
   </style>
 </head>
 <body>
-  <div id="overlay" class="blur-overlay"></div>
+  <div id="overlay"></div>
+  <div id="loadingOverlay" class="hidden">
+    <LaundryLoadingIcon />
+  </div>
 
   <div id="step1">
     <header class="absolute top-2 left-2 lg:top-6 lg:left-6 p-4">
@@ -105,8 +146,7 @@ const apiUrl = import.meta.env.VITE_API_URL;
             class="flex-grow text-gray-900 px-4 h-12 py-2 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
           />
           <button 
-            type="button" 
-            id="nextStep"
+            type="submit" 
             class="px-9 h-12 pt-1 bg-blue-600 shadow-black/25 shadow-md 
             hover:shadow-black/40 hover:shadow-lg
             text-white rounded-2xl active:bg-blue-400
@@ -160,7 +200,10 @@ const apiUrl = import.meta.env.VITE_API_URL;
           type="submit" 
           class="submit-button"
         >
-          Submit
+          <span id="submitText">Submit</span>
+          <span id="loadingIcon" class="hidden">
+            <LaundryLoadingIcon />
+          </span>
         </button>
       </form>
     </div>
@@ -168,7 +211,7 @@ const apiUrl = import.meta.env.VITE_API_URL;
 
   <div id="confirmationScreen" class="hidden">
     <div class="content">
-      <img src="/logo.svg" alt="Tumbil Logo" class="mx-auto mb-4" style="width: 100px;" />
+      <img src="/logo.svg" alt="Tumbil Logo" class="mx-auto mb-4" style="width: 200px;" />
       <h2 class="text-3xl mb-4">perfect, we got your info and our team will be in touch soon</h2>
     </div>
   </div>
@@ -179,20 +222,30 @@ const apiUrl = import.meta.env.VITE_API_URL;
     const step1 = document.getElementById('step1');
     const step2 = document.getElementById('step2');
     const confirmationScreen = document.getElementById('confirmationScreen');
-    const nextStepButton = document.getElementById('nextStep');
+    const emailForm = document.getElementById('emailForm');
     const emailInput = document.getElementById('emailInput');
     const hiddenEmail = document.getElementById('hiddenEmail');
     const fullForm = document.getElementById('fullForm');
     const messageElement = document.getElementById('message');
     const overlay = document.getElementById('overlay');
+    const loadingOverlay = document.getElementById('loadingOverlay');
+    const submitText = document.getElementById('submitText');
+    const loadingIcon = document.getElementById('loadingIcon');
 
-    nextStepButton?.addEventListener('click', function() {
+    function transition(hideElement, showElement) {
+      hideElement.classList.add('hidden');
+      setTimeout(() => {
+        showElement.classList.remove('hidden');
+      }, 300);
+    }
+
+    emailForm?.addEventListener('submit', function(e) {
+      e.preventDefault();
       if (emailInput instanceof HTMLInputElement && emailInput.checkValidity()) {
         if (hiddenEmail instanceof HTMLInputElement) {
           hiddenEmail.value = emailInput.value;
         }
-        step1?.classList.add('hidden');
-        step2?.classList.remove('hidden');
+        transition(step1, step2);
         overlay?.classList.add('active');
       } else if (emailInput instanceof HTMLInputElement) {
         emailInput.reportValidity();
@@ -206,6 +259,10 @@ const apiUrl = import.meta.env.VITE_API_URL;
 
       if (!messageElement) return;
 
+      // Show loading icon and hide form fields
+      loadingOverlay?.classList.remove('hidden');
+      loadingOverlay?.classList.add('active');
+
       try {
         const response = await fetch(`${apiUrl}/add-contact`, {
           method: 'POST',
@@ -218,23 +275,26 @@ const apiUrl = import.meta.env.VITE_API_URL;
         const result = await response.json();
         
         if (response.ok) {
-          step2?.classList.add('hidden');
-          confirmationScreen?.classList.remove('hidden');
+          transition(step2, confirmationScreen);
         } else {
-          handleFormError(result, formProps.email);
+          handleFormError(result);
         }
       } catch (error) {
         console.error('Error:', error);
         messageElement.textContent = 'There was an error submitting your form. Please try again.';
         messageElement.style.color = 'red';
+      } finally {
+        // Hide loading icon and show form fields
+        loadingOverlay?.classList.add('hidden');
+        loadingOverlay?.classList.remove('active');
       }
     });
 
-    function handleFormError(result, email) {
+    function handleFormError(result) {
       let userFriendlyMessage;
 
-      if (result.error && result.error.includes('already exists')) {
-        userFriendlyMessage = `A user with your email ${email} already reached out and we'll be in touch soon.`;
+      if (result.error && result.error.code === 'uniqueness_conflict') {
+        userFriendlyMessage = 'Sorry, looks like someone has already registered with this email.';
       } else {
         userFriendlyMessage = 'There was an issue with your submission. Please try again.';
       }

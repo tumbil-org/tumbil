@@ -1,0 +1,37 @@
+---
+---
+<div class="loading-container">
+    <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" class="rotating-logo">
+      <ellipse cx="40" cy="40" rx="40" ry="40" fill="#00A3E7"/>
+      <ellipse cx="40" cy="40" rx="40" ry="40" fill="url(#paint0_radial_5257_230)"/>
+      <path class="cloud-shape" d="M68.3047 42.4696C68.3711 41.6784 68.4049 40.878 68.4049 40.0696C68.4049 24.4216 55.7197 11.7363 40.0716 11.7363C27.5139 11.7363 16.8643 19.9059 13.1477 31.2202C16.8445 30.8367 25.9049 28.403 35.9049 37.5697C45.2326 46.12 66.7034 60.4287 68.3047 42.4696Z" fill="white"/>
+      <defs>
+        <radialGradient id="paint0_radial_5257_230" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(40 58.7952) rotate(-39.7605) scale(72.5878 57.3666)">
+          <stop offset="0.109324" stop-color="#3CC7F5"/>
+          <stop offset="1" stop-color="#5686F5"/>
+        </radialGradient>
+      </defs>
+    </svg>
+  </div>
+  
+  <style>
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(0.95); }
+    }
+    .loading-container {
+      display: inline-block;
+      position: relative;
+    }
+    .rotating-logo {
+      animation: rotate 3s linear infinite;
+    }
+    .cloud-shape {
+      animation: pulse 2s ease-in-out infinite;
+      transform-origin: center;
+    }
+  </style>
