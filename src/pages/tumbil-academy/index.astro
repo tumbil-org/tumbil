@@ -1,0 +1,186 @@
+---
+import "../../styles/global.css";
+
+const apiUrl = import.meta.env.PUBLIC_API_URL;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tumbil Academy</title>
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="64x64" href="/favicon-64x64.png" />
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #ffffff;
+      color: #0f172a;
+      font-family: 'Poppins', system-ui, sans-serif;
+      display: flex;
+      flex-direction: column;
+    }
+    .header {
+      padding: 1.5rem 2rem;
+    }
+    .header img {
+      height: 40px;
+      width: auto;
+    }
+    .stage {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+    }
+    .card {
+      width: 100%;
+      max-width: 420px;
+      padding: 2.5rem 2rem;
+      border: 1px solid #e2e8f0;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+      background: #ffffff;
+    }
+    h1 {
+      margin: 0 0 0.25rem 0;
+      font-size: 1.75rem;
+      letter-spacing: -0.01em;
+    }
+    h1 .accent { color: #00a3e7; }
+    p.lede {
+      margin: 0 0 1.75rem 0;
+      color: #475569;
+      font-size: 0.95rem;
+    }
+    label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      color: #334155;
+    }
+    input[type="password"] {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 0.75rem 1rem;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    input[type="password"]:focus {
+      outline: none;
+      border-color: #00a3e7;
+      box-shadow: 0 0 0 3px rgba(0, 163, 231, 0.15);
+    }
+    button {
+      width: 100%;
+      margin-top: 1.25rem;
+      padding: 0.85rem 1rem;
+      border: none;
+      border-radius: 12px;
+      background: #00a3e7;
+      color: #ffffff;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.05s;
+    }
+    button:hover { background: #0093d1; }
+    button:active { transform: translateY(1px); }
+    button[disabled] { opacity: 0.6; cursor: not-allowed; }
+    .error {
+      margin-top: 0.75rem;
+      color: #dc2626;
+      font-size: 0.9rem;
+      min-height: 1.2em;
+    }
+    .footnote {
+      margin-top: 1.5rem;
+      font-size: 0.8rem;
+      color: #94a3b8;
+      text-align: center;
+    }
+    .footnote a {
+      color: #475569;
+      text-decoration: none;
+    }
+    .footnote a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <a href="/">
+      <img src="/tumbil-logo-horizontal.png" alt="Tumbil" />
+    </a>
+  </header>
+
+  <main class="stage">
+    <div class="card">
+      <h1>Tumbil <span class="accent">Academy</span></h1>
+      <p class="lede">Enter the access password to view onboarding and training videos.</p>
+
+      <form id="loginForm" autocomplete="off">
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" required autofocus />
+        <button id="submitBtn" type="submit">Sign in</button>
+        <div id="error" class="error" role="alert"></div>
+      </form>
+
+      <p class="footnote"><a href="/">Back to washpro.tumbil.com</a></p>
+    </div>
+  </main>
+
+  <script define:vars={{ apiUrl }}>
+    const form = document.getElementById('loginForm');
+    const passwordInput = document.getElementById('password');
+    const submitBtn = document.getElementById('submitBtn');
+    const errorEl = document.getElementById('error');
+
+    async function checkSession() {
+      try {
+        const res = await fetch(`${apiUrl}/academy/session`, { credentials: 'include' });
+        if (res.ok) window.location.replace('/tumbil-academy/library');
+      } catch (e) {
+        // ignore - user just logs in
+      }
+    }
+    checkSession();
+
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorEl.textContent = '';
+      submitBtn.disabled = true;
+
+      try {
+        const res = await fetch(`${apiUrl}/academy/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({ password: passwordInput.value }),
+        });
+        if (res.ok) {
+          window.location.replace('/tumbil-academy/library');
+        } else if (res.status === 401) {
+          errorEl.textContent = 'Wrong password. Try again.';
+        } else {
+          errorEl.textContent = 'Something went wrong. Please try again.';
+        }
+      } catch (err) {
+        console.error(err);
+        errorEl.textContent = 'Network error. Please try again.';
+      } finally {
+        submitBtn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

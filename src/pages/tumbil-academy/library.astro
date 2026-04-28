@@ -1,0 +1,210 @@
+---
+import "../../styles/global.css";
+
+const apiUrl = import.meta.env.PUBLIC_API_URL;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tumbil Academy - Library</title>
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="64x64" href="/favicon-64x64.png" />
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #f8fafc;
+      color: #0f172a;
+      font-family: 'Poppins', system-ui, sans-serif;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 2rem;
+      background: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .header img {
+      height: 36px;
+      width: auto;
+    }
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .badge {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #475569;
+      letter-spacing: 0.02em;
+    }
+    .logout-btn {
+      background: transparent;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 0.45rem 0.9rem;
+      font-size: 0.85rem;
+      color: #334155;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .logout-btn:hover {
+      background: #f1f5f9;
+      border-color: #94a3b8;
+    }
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 4rem;
+    }
+    .page-title {
+      margin: 0 0 0.5rem 0;
+      font-size: 2rem;
+      letter-spacing: -0.01em;
+    }
+    .page-title .accent { color: #00a3e7; }
+    .page-sub {
+      margin: 0 0 2.5rem 0;
+      color: #475569;
+      font-size: 1rem;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.75rem;
+    }
+    @media (min-width: 768px) {
+      .grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    .video-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
+      display: flex;
+      flex-direction: column;
+    }
+    .video-card video {
+      width: 100%;
+      display: block;
+      background: #0f172a;
+      aspect-ratio: 16 / 9;
+      object-fit: contain;
+    }
+    .video-meta {
+      padding: 1rem 1.25rem 1.25rem;
+    }
+    .video-title {
+      margin: 0 0 0.25rem 0;
+      font-size: 1.1rem;
+      letter-spacing: -0.005em;
+    }
+    .video-duration {
+      font-size: 0.85rem;
+      color: #64748b;
+    }
+    .empty {
+      padding: 3rem;
+      text-align: center;
+      color: #64748b;
+      background: #ffffff;
+      border: 1px dashed #cbd5e1;
+      border-radius: 16px;
+    }
+    .loading {
+      padding: 3rem;
+      text-align: center;
+      color: #64748b;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <a href="/">
+      <img src="/tumbil-logo-horizontal.png" alt="Tumbil" />
+    </a>
+    <div class="header-right">
+      <span class="badge">Tumbil Academy</span>
+      <button id="logoutBtn" class="logout-btn" type="button">Sign out</button>
+    </div>
+  </header>
+
+  <main>
+    <h1 class="page-title">Welcome to Tumbil <span class="accent">Academy</span></h1>
+    <p class="page-sub">Onboarding and training videos for WashPros. New material is added here over time.</p>
+
+    <div id="content" class="loading">Loading...</div>
+  </main>
+
+  <script define:vars={{ apiUrl }}>
+    const content = document.getElementById('content');
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, (c) => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+      }[c]));
+    }
+
+    function renderVideos(videos) {
+      if (!videos.length) {
+        content.className = 'empty';
+        content.textContent = 'No videos yet. Check back soon.';
+        return;
+      }
+      content.className = 'grid';
+      content.innerHTML = videos.map((v) => `
+        <article class="video-card">
+          <video controls preload="metadata" playsinline src="${apiUrl}/academy/video/${encodeURIComponent(v.slug)}"></video>
+          <div class="video-meta">
+            <h2 class="video-title">${escapeHtml(v.title)}</h2>
+            <div class="video-duration">${escapeHtml(v.duration)}</div>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    async function init() {
+      try {
+        const sessionRes = await fetch(`${apiUrl}/academy/session`, { credentials: 'include' });
+        if (!sessionRes.ok) {
+          window.location.replace('/tumbil-academy');
+          return;
+        }
+        const videosRes = await fetch(`${apiUrl}/academy/videos`, { credentials: 'include' });
+        if (!videosRes.ok) {
+          window.location.replace('/tumbil-academy');
+          return;
+        }
+        const videos = await videosRes.json();
+        renderVideos(videos);
+      } catch (err) {
+        console.error(err);
+        content.className = 'empty';
+        content.textContent = 'Could not load videos. Please refresh and try again.';
+      }
+    }
+
+    logoutBtn?.addEventListener('click', async () => {
+      try {
+        await fetch(`${apiUrl}/academy/logout`, { method: 'POST', credentials: 'include' });
+      } catch (e) {
+        // ignore
+      }
+      window.location.replace('/tumbil-academy');
+    });
+
+    init();
+  </script>
+</body>
+</html>
