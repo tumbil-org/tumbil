@@ -1,5 +1,6 @@
 ---
 import "../../styles/global.css";
+import AcademyTabs from "../../components/AcademyTabs.astro";
 
 const apiUrl = import.meta.env.PUBLIC_API_URL;
 ---
@@ -126,6 +127,72 @@ const apiUrl = import.meta.env.PUBLIC_API_URL;
       text-align: center;
       color: #64748b;
     }
+    .section-title {
+      margin: 3rem 0 0.25rem 0;
+      font-size: 1.4rem;
+      letter-spacing: -0.005em;
+    }
+    .section-sub {
+      margin: 0 0 1.5rem 0;
+      color: #64748b;
+      font-size: 0.95rem;
+    }
+    .ref-card {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      padding: 1.25rem 1.5rem;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
+    }
+    .ref-icon {
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      background: #ecf8fe;
+      color: #00a3e7;
+      font-weight: 600;
+      font-size: 0.85rem;
+      letter-spacing: 0.02em;
+    }
+    .ref-body {
+      flex: 1;
+      min-width: 0;
+    }
+    .ref-title {
+      margin: 0 0 0.2rem 0;
+      font-size: 1rem;
+    }
+    .ref-blurb {
+      margin: 0;
+      font-size: 0.9rem;
+      color: #64748b;
+    }
+    .download-btn {
+      flex-shrink: 0;
+      background: #00a3e7;
+      color: #ffffff;
+      border: none;
+      border-radius: 10px;
+      padding: 0.6rem 1rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      font-family: inherit;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .download-btn:hover { background: #0093d1; }
+    @media (max-width: 540px) {
+      .ref-card { flex-direction: column; align-items: flex-start; }
+      .download-btn { align-self: stretch; text-align: center; }
+    }
   </style>
 </head>
 <body>
@@ -141,13 +208,20 @@ const apiUrl = import.meta.env.PUBLIC_API_URL;
 
   <main>
     <h1 class="page-title">Welcome to Tumbil <span class="accent">Academy</span></h1>
-    <p class="page-sub">Onboarding and training videos for WashPros. New material is added here over time.</p>
+    <p class="page-sub">Onboarding, training, and reference materials for WashPros. New material is added here over time.</p>
+
+    <AcademyTabs active="training" />
 
     <div id="content" class="loading">Loading...</div>
+
+    <h2 class="section-title">Reference</h2>
+    <p class="section-sub">Quick references to keep handy on the job.</p>
+    <div id="reference" class="loading">Loading...</div>
   </main>
 
   <script define:vars={{ apiUrl }}>
     const content = document.getElementById('content');
+    const reference = document.getElementById('reference');
     const logoutBtn = document.getElementById('logoutBtn');
 
     function escapeHtml(s) {
@@ -174,6 +248,25 @@ const apiUrl = import.meta.env.PUBLIC_API_URL;
       `).join('');
     }
 
+    function renderReference(items) {
+      if (!items.length) {
+        reference.className = 'empty';
+        reference.textContent = 'No reference materials yet.';
+        return;
+      }
+      reference.className = '';
+      reference.innerHTML = items.map((item) => `
+        <article class="ref-card">
+          <div class="ref-icon">${escapeHtml(item.kind.toUpperCase())}</div>
+          <div class="ref-body">
+            <h3 class="ref-title">${escapeHtml(item.title)}</h3>
+            <p class="ref-blurb">${escapeHtml(item.blurb)}</p>
+          </div>
+          <a class="download-btn" href="${apiUrl}/academy/reference/${encodeURIComponent(item.slug)}" download>Download</a>
+        </article>
+      `).join('');
+    }
+
     async function init() {
       try {
         const sessionRes = await fetch(`${apiUrl}/academy/session`, { credentials: 'include' });
@@ -181,13 +274,24 @@ const apiUrl = import.meta.env.PUBLIC_API_URL;
           window.location.replace('/tumbil-academy');
           return;
         }
-        const videosRes = await fetch(`${apiUrl}/academy/videos`, { credentials: 'include' });
+        const [videosRes, refRes] = await Promise.all([
+          fetch(`${apiUrl}/academy/videos`, { credentials: 'include' }),
+          fetch(`${apiUrl}/academy/reference`, { credentials: 'include' }),
+        ]);
         if (!videosRes.ok) {
           window.location.replace('/tumbil-academy');
           return;
         }
         const videos = await videosRes.json();
         renderVideos(videos);
+
+        if (refRes.ok) {
+          const items = await refRes.json();
+          renderReference(items);
+        } else {
+          reference.className = 'empty';
+          reference.textContent = 'Could not load reference materials.';
+        }
       } catch (err) {
         console.error(err);
         content.className = 'empty';

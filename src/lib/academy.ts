@@ -11,6 +11,15 @@ export type AcademyVideo = {
   duration: string;
 };
 
+export type AcademyAssetKind = 'image' | 'video' | 'pdf';
+
+export type AcademyAsset = {
+  slug: string;
+  title: string;
+  kind: AcademyAssetKind;
+  blurb: string;
+};
+
 export async function login(password: string): Promise<boolean> {
   const res = await fetch(api('/academy/login'), {
     method: 'POST',
@@ -41,4 +50,25 @@ export async function listVideos(): Promise<AcademyVideo[]> {
 
 export function videoSrc(slug: string): string {
   return api(`/academy/video/${encodeURIComponent(slug)}`);
+}
+
+export async function listMarketing(): Promise<AcademyAsset[]> {
+  const res = await fetch(api('/academy/marketing'), { credentials: 'include' });
+  if (!res.ok) return [];
+  return res.json();
+}
+
+export function marketingSrc(slug: string, download = false): string {
+  const base = api(`/academy/marketing/${encodeURIComponent(slug)}`);
+  return download ? `${base}?download=1` : base;
+}
+
+export async function listReference(): Promise<AcademyAsset[]> {
+  const res = await fetch(api('/academy/reference'), { credentials: 'include' });
+  if (!res.ok) return [];
+  return res.json();
+}
+
+export function referenceSrc(slug: string): string {
+  return api(`/academy/reference/${encodeURIComponent(slug)}`);
 }

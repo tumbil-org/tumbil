@@ -1,0 +1,49 @@
+---
+interface Props {
+  active: 'training' | 'marketing';
+}
+const { active } = Astro.props;
+---
+
+<nav class="academy-tabs" aria-label="Tumbil Academy sections">
+  <a
+    href="/tumbil-academy/library"
+    class:list={['tab', active === 'training' && 'active']}
+    aria-current={active === 'training' ? 'page' : undefined}
+  >Training</a>
+  <a
+    href="/tumbil-academy/marketing-kit"
+    class:list={['tab', active === 'marketing' && 'active']}
+    aria-current={active === 'marketing' ? 'page' : undefined}
+  >Marketing Kit</a>
+</nav>
+
+<style>
+  .academy-tabs {
+    display: flex;
+    gap: 1.5rem;
+    border-bottom: 1px solid #e2e8f0;
+    margin: 0 0 2rem 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .tab {
+    flex-shrink: 0;
+    padding: 0.75rem 0.25rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #64748b;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 0.15s, border-color 0.15s;
+    font-family: inherit;
+  }
+  .tab:hover {
+    color: #0f172a;
+  }
+  .tab.active {
+    color: #00a3e7;
+    border-bottom-color: #00a3e7;
+  }
+</style>

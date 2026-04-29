@@ -1,0 +1,360 @@
+---
+import "../../styles/global.css";
+import AcademyTabs from "../../components/AcademyTabs.astro";
+
+const apiUrl = import.meta.env.PUBLIC_API_URL;
+
+const samplePost = `Tired of wasting time doing laundry?
+I'm your neighbour, and I can help!
+PLUS, I'm offering $20 off your first order.
+
+Let me take laundry off your hands. I offer a full-service experience: I'll pick up your laundry, wash, dry, fold, and deliver it back to you, all with care and attention to detail.
+
+It's like having your own personal laundromat... without ever leaving home.
+
+- High-quality laundry care
+- Free pickup & delivery
+- Same-day service available
+- Just $1.25 per lb
+
+If you're interested, head to Tumbil.com and use promo code [YOUR CODE] for $20 off your first order!`;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tumbil Academy - Marketing Kit</title>
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="64x64" href="/favicon-64x64.png" />
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #f8fafc;
+      color: #0f172a;
+      font-family: 'Poppins', system-ui, sans-serif;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 2rem;
+      background: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .header img {
+      height: 36px;
+      width: auto;
+    }
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .badge {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #475569;
+      letter-spacing: 0.02em;
+    }
+    .logout-btn {
+      background: transparent;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 0.45rem 0.9rem;
+      font-size: 0.85rem;
+      color: #334155;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .logout-btn:hover {
+      background: #f1f5f9;
+      border-color: #94a3b8;
+    }
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 4rem;
+    }
+    .page-title {
+      margin: 0 0 0.5rem 0;
+      font-size: 2rem;
+      letter-spacing: -0.01em;
+    }
+    .page-title .accent { color: #00a3e7; }
+    .page-sub {
+      margin: 0 0 2.5rem 0;
+      color: #475569;
+      font-size: 1rem;
+    }
+    .section-title {
+      margin: 3rem 0 0.25rem 0;
+      font-size: 1.4rem;
+      letter-spacing: -0.005em;
+    }
+    .section-sub {
+      margin: 0 0 1.5rem 0;
+      color: #64748b;
+      font-size: 0.95rem;
+    }
+    .referral-card {
+      background: linear-gradient(135deg, #ecf8fe 0%, #ffffff 100%);
+      border: 1px solid #bae6fd;
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
+    }
+    .referral-card h2 {
+      margin: 0 0 1rem 0;
+      font-size: 1.4rem;
+    }
+    .referral-card p {
+      margin: 0 0 1rem 0;
+      color: #334155;
+      font-size: 0.98rem;
+      line-height: 1.55;
+    }
+    .referral-card p:last-child { margin-bottom: 0; }
+    .referral-card strong { color: #0f172a; }
+    .referral-card .accent { color: #00a3e7; }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.75rem;
+    }
+    @media (min-width: 768px) {
+      .grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    .asset-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
+      display: flex;
+      flex-direction: column;
+    }
+    .asset-preview {
+      width: 100%;
+      display: block;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      background: #f1f5f9;
+    }
+    .asset-preview-video {
+      aspect-ratio: 16 / 9;
+      object-fit: contain;
+      background: #0f172a;
+    }
+    .asset-meta {
+      padding: 1rem 1.25rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .asset-title {
+      margin: 0;
+      font-size: 1.05rem;
+      letter-spacing: -0.005em;
+    }
+    .asset-blurb {
+      margin: 0;
+      font-size: 0.9rem;
+      color: #64748b;
+    }
+    .asset-actions {
+      margin-top: 0.5rem;
+    }
+    .download-btn {
+      display: inline-block;
+      background: #00a3e7;
+      color: #ffffff;
+      border: none;
+      border-radius: 10px;
+      padding: 0.6rem 1.1rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      font-family: inherit;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .download-btn:hover { background: #0093d1; }
+    .post-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
+    }
+    .post-card pre {
+      margin: 0 0 1rem 0;
+      padding: 1.25rem;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      font-family: inherit;
+      font-size: 0.92rem;
+      line-height: 1.55;
+      color: #334155;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+    .copy-btn {
+      background: #0f172a;
+      color: #ffffff;
+      border: none;
+      border-radius: 10px;
+      padding: 0.6rem 1.1rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .copy-btn:hover { background: #1e293b; }
+    .copy-btn.copied { background: #16a34a; }
+    .empty {
+      padding: 3rem;
+      text-align: center;
+      color: #64748b;
+      background: #ffffff;
+      border: 1px dashed #cbd5e1;
+      border-radius: 16px;
+    }
+    .loading {
+      padding: 3rem;
+      text-align: center;
+      color: #64748b;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <a href="/">
+      <img src="/tumbil-logo-horizontal.png" alt="Tumbil" />
+    </a>
+    <div class="header-right">
+      <span class="badge">Tumbil Academy</span>
+      <button id="logoutBtn" class="logout-btn" type="button">Sign out</button>
+    </div>
+  </header>
+
+  <main>
+    <h1 class="page-title">Marketing <span class="accent">Kit</span></h1>
+    <p class="page-sub">Share these in your neighbourhood to grow your customer base.</p>
+
+    <AcademyTabs active="marketing" />
+
+    <section class="referral-card">
+      <h2>How your <span class="accent">referral code</span> works</h2>
+      <p>Every WashPro has a personal promo code. When a new customer uses yours at checkout on tumbil.com, they get <strong>$20 off their first order</strong> - and you automatically become their <strong>Preferred WashPro</strong>.</p>
+      <p><strong>Preferred WashPro</strong> means: when that customer places future orders, the order is offered to <strong>you first - 10 minutes before any other WashPro sees it</strong>. More repeat customers, more consistency, less competition.</p>
+      <p>Find your code in the WashPro app. If you don't see it, update to the latest version from the App Store or Play Store.</p>
+    </section>
+
+    <h2 class="section-title">Share these with potential customers</h2>
+    <p class="section-sub">Download and post in local Facebook groups, parent groups, and neighbourhood chats.</p>
+    <div id="assets" class="loading">Loading...</div>
+
+    <h2 class="section-title">Sample post you can copy</h2>
+    <p class="section-sub">Tweak it to sound like you. Replace <strong>[YOUR CODE]</strong> with your actual promo code from the WashPro app.</p>
+    <div class="post-card">
+      <pre id="samplePost">{samplePost}</pre>
+      <button id="copyBtn" class="copy-btn" type="button">Copy text</button>
+    </div>
+  </main>
+
+  <script define:vars={{ apiUrl, samplePost }}>
+    const assets = document.getElementById('assets');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const copyBtn = document.getElementById('copyBtn');
+
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, (c) => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+      }[c]));
+    }
+
+    function renderAssets(items) {
+      if (!items.length) {
+        assets.className = 'empty';
+        assets.textContent = 'No marketing assets yet. Check back soon.';
+        return;
+      }
+      assets.className = 'grid';
+      assets.innerHTML = items.map((item) => {
+        const previewSrc = `${apiUrl}/academy/marketing/${encodeURIComponent(item.slug)}`;
+        const downloadHref = `${previewSrc}?download=1`;
+        const preview = item.kind === 'video'
+          ? `<video class="asset-preview asset-preview-video" controls preload="metadata" playsinline src="${previewSrc}"></video>`
+          : `<img class="asset-preview" src="${previewSrc}" alt="${escapeHtml(item.title)}" loading="lazy" />`;
+        return `
+          <article class="asset-card">
+            ${preview}
+            <div class="asset-meta">
+              <h3 class="asset-title">${escapeHtml(item.title)}</h3>
+              <p class="asset-blurb">${escapeHtml(item.blurb)}</p>
+              <div class="asset-actions">
+                <a class="download-btn" href="${downloadHref}" download>Download</a>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    async function init() {
+      try {
+        const sessionRes = await fetch(`${apiUrl}/academy/session`, { credentials: 'include' });
+        if (!sessionRes.ok) {
+          window.location.replace('/tumbil-academy');
+          return;
+        }
+        const res = await fetch(`${apiUrl}/academy/marketing`, { credentials: 'include' });
+        if (!res.ok) {
+          window.location.replace('/tumbil-academy');
+          return;
+        }
+        const items = await res.json();
+        renderAssets(items);
+      } catch (err) {
+        console.error(err);
+        assets.className = 'empty';
+        assets.textContent = 'Could not load assets. Please refresh and try again.';
+      }
+    }
+
+    logoutBtn?.addEventListener('click', async () => {
+      try {
+        await fetch(`${apiUrl}/academy/logout`, { method: 'POST', credentials: 'include' });
+      } catch (e) {
+        // ignore
+      }
+      window.location.replace('/tumbil-academy');
+    });
+
+    copyBtn?.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(samplePost);
+        copyBtn.textContent = 'Copied!';
+        copyBtn.classList.add('copied');
+        setTimeout(() => {
+          copyBtn.textContent = 'Copy text';
+          copyBtn.classList.remove('copied');
+        }, 2000);
+      } catch (err) {
+        console.error('Clipboard write failed', err);
+      }
+    });
+
+    init();
+  </script>
+</body>
+</html>
