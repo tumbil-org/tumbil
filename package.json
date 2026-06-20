@@ -10,8 +10,7 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/tailwind": "^5.1.0",
-    "astro": "^4.10.2",
+    "astro": "^6.4.8",
     "axios": "^1.7.2",
     "htmx.org": "^1.9.12",
     "tailwindcss": "^3.4.4"
@@ -19,5 +18,9 @@
   "overrides": {
     "devalue": "^5.8.1",
     "esbuild": "^0.28.1"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.5.0",
+    "postcss": "^8.5.15"
   }
 }
