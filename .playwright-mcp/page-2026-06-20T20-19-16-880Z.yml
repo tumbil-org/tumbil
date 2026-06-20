@@ -1,0 +1,38 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - generic:
+      - img
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - link "Tumbil Logo" [ref=e5] [cursor=pointer]:
+        - /url: https://tumbil.com
+        - img "Tumbil Logo" [ref=e6]
+    - navigation [ref=e7]:
+      - link "Tumbil Academy" [ref=e8] [cursor=pointer]:
+        - /url: /tumbil-academy
+    - main [ref=e9]:
+      - generic [ref=e10]:
+        - heading "Laundry Reimagined" [level=1] [ref=e11]
+        - paragraph [ref=e12]: Sign up to become a laundry professional and earn up to $4,000/month working from home
+        - generic [ref=e13]:
+          - textbox "Email" [ref=e14]
+          - button "Let's go" [ref=e15] [cursor=pointer]
+  - generic:
+    - generic:
+      - heading "amazing, just a few questions" [level=2]
+      - generic:
+        - textbox "first name"
+        - textbox "last name"
+        - textbox "phone number"
+        - textbox "postal code"
+        - button "Submit":
+          - generic: Submit
+          - generic:
+            - generic:
+              - img
+  - generic:
+    - generic:
+      - link "Tumbil Logo":
+        - /url: https://tumbil.com
+        - img "Tumbil Logo"
+      - heading "perfect, we got your info and our team will be in touch soon" [level=2]
