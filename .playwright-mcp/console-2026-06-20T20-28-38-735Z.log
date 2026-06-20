@@ -1,0 +1,85 @@
+[     448ms] [INFO] Jun-20 16:28:39.182 [METRICS] Starting timers for metrics collection @ https://a.slack-edge.com/bv1-13-br/gantry-v2-shared.464ff8fe94a6bddb533e.min.js?cacheKey=gantry-1781981265:0
+[     668ms] [INFO] Jun-20 16:28:39.402 [APP] client-v2 @ https://a.slack-edge.com/bv1-13-br/gantry-v2-shared.464ff8fe94a6bddb533e.min.js?cacheKey=gantry-1781981265:0
+[     668ms] [INFO] Jun-20 16:28:39.402 [DATE/TIME] 1781987319402 Sat Jun 20 2026 16:28:39 GMT-0400 (Eastern Daylight Time) @ https://a.slack-edge.com/bv1-13-br/gantry-v2-shared.464ff8fe94a6bddb533e.min.js?cacheKey=gantry-1781981265:0
+[     668ms] [INFO] Jun-20 16:28:39.402 [VERSION] version_hash: 196faf16ae3b782eda3c304f0a1b422369bbb802 @ https://a.slack-edge.com/bv1-13-br/gantry-v2-shared.464ff8fe94a6bddb533e.min.js?cacheKey=gantry-1781981265:0
+[     668ms] [INFO] Jun-20 16:28:39.403 [VERSION] version_ts: 1781981265 @ https://a.slack-edge.com/bv1-13-br/gantry-v2-shared.464ff8fe94a6bddb533e.min.js?cacheKey=gantry-1781981265:0
+[     668ms] [INFO] Jun-20 16:28:39.403 [VERSION] min_version_data_ts: 1722374725 @ https://a.slack-edge.com/bv1-13-br/gantry-v2-shared.464ff8fe94a6bddb533e.min.js?cacheKey=gantry-1781981265:0
+[     668ms] [INFO] Jun-20 16:28:39.403 [URL] https://app.slack.com/client/T07BLFXTP88/C0APGM9JJH2 @ https://a.slack-edge.com/bv1-13-br/gantry-v2-shared.464ff8fe94a6bddb533e.min.js?cacheKey=gantry-1781981265:0
+[     668ms] [INFO] Jun-20 16:28:39.403 [AUTH] Credentials are fresh (psc=1781987164, csc=1781987164) @ https://a.slack-edge.com/bv1-13-br/gantry-v2-shared.464ff8fe94a6bddb533e.min.js?cacheKey=gantry-1781981265:0
+[     669ms] [INFO] Jun-20 16:28:39.403 [LOCAL-CONFIG] ingestIncomingConfig(): no incoming payload to process; current teams: (none) @ https://a.slack-edge.com/bv1-13-br/gantry-v2-shared.464ff8fe94a6bddb533e.min.js?cacheKey=gantry-1781981265:0
+[     669ms] [INFO] Jun-20 16:28:39.403 [BOOT] Initial user team ID: undefined @ https://a.slack-edge.com/bv1-13-br/gantry-v2-shared.464ff8fe94a6bddb533e.min.js?cacheKey=gantry-1781981265:0
+[     669ms] [INFO] Jun-20 16:28:39.403 [AUTH] Trying to boot T07BLFXTP88, but we need to refetch credentials @ https://a.slack-edge.com/bv1-13-br/gantry-v2-shared.464ff8fe94a6bddb533e.min.js?cacheKey=gantry-1781981265:0
+[     669ms] [INFO] Jun-20 16:28:39.403 [AUTH] Re-fetching credentials since we have not fetched them recently @ https://a.slack-edge.com/bv1-13-br/gantry-v2-shared.464ff8fe94a6bddb533e.min.js?cacheKey=gantry-1781981265:0
+[     669ms] [INFO] Jun-20 16:28:39.404 [AUTH] fetchAuthAndReturnToUrl: auth fetch times: 1781987319404 @ https://a.slack-edge.com/bv1-13-br/gantry-v2-shared.464ff8fe94a6bddb533e.min.js?cacheKey=gantry-1781981265:0
+[     669ms] [INFO] Jun-20 16:28:39.404 [AUTH] fetchAuthAndReturnToUrl: will return to /client/T07BLFXTP88/C0APGM9JJH2 @ https://a.slack-edge.com/bv1-13-br/gantry-v2-shared.464ff8fe94a6bddb533e.min.js?cacheKey=gantry-1781981265:0
+[     669ms] [INFO] Jun-20 16:28:39.404 [AUTH] fetchAuthAndReturnToUrl: fetching credentials with iframe at /auth?app=client&lc=1781987164&return_to=%2Fclient%2FT07BLFXTP88%2FC0APGM9JJH2&teams= @ https://a.slack-edge.com/bv1-13-br/gantry-v2-shared.464ff8fe94a6bddb533e.min.js?cacheKey=gantry-1781981265:0
+[     695ms] [LOG] [WD] All assets have reported back; s: 7; f: 0 @ https://app.slack.com/client/T07BLFXTP88/C0APGM9JJH2:0
+[     721ms] [LOG] [AUTH] credentials are ready @ https://app.slack.com/auth?app=client&lc=1781987164&return_to=%2Fclient%2FT07BLFXTP88%2FC0APGM9JJH2&teams=&iframe=1:3
+[     722ms] [INFO] Jun-20 16:28:39.456 [AUTH] credentials are ready ({"added":[],"changed":[],"removed":[],"pending":[],"isNoOp":true,"areChangedTeamsIncompatible":false}) @ https://a.slack-edge.com/bv1-13-br/gantry-v2-shared.464ff8fe94a6bddb533e.min.js?cacheKey=gantry-1781981265:0
+[     722ms] [INFO] Jun-20 16:28:39.457 [AUTH] credentials are ready; reloading to /client/T07BLFXTP88/C0APGM9JJH2 @ https://a.slack-edge.com/bv1-13-br/gantry-v2-shared.464ff8fe94a6bddb533e.min.js?cacheKey=gantry-1781981265:0
+[     811ms] [INFO] Jun-20 16:28:39.545 [METRICS] Starting timers for metrics collection @ https://a.slack-edge.com/bv1-13-br/gantry-v2-shared.464ff8fe94a6bddb533e.min.js?cacheKey=gantry-1781981265:0
+[     870ms] [INFO] Jun-20 16:28:39.605 [APP] client-v2 @ https://a.slack-edge.com/bv1-13-br/gantry-v2-shared.464ff8fe94a6bddb533e.min.js?cacheKey=gantry-1781981265:0
+[     870ms] [INFO] Jun-20 16:28:39.605 [DATE/TIME] 1781987319605 Sat Jun 20 2026 16:28:39 GMT-0400 (Eastern Daylight Time) @ https://a.slack-edge.com/bv1-13-br/gantry-v2-shared.464ff8fe94a6bddb533e.min.js?cacheKey=gantry-1781981265:0
+[     870ms] [INFO] Jun-20 16:28:39.605 [VERSION] version_hash: 196faf16ae3b782eda3c304f0a1b422369bbb802 @ https://a.slack-edge.com/bv1-13-br/gantry-v2-shared.464ff8fe94a6bddb533e.min.js?cacheKey=gantry-1781981265:0
+[     870ms] [INFO] Jun-20 16:28:39.605 [VERSION] version_ts: 1781981265 @ https://a.slack-edge.com/bv1-13-br/gantry-v2-shared.464ff8fe94a6bddb533e.min.js?cacheKey=gantry-1781981265:0
+[     870ms] [INFO] Jun-20 16:28:39.605 [VERSION] min_version_data_ts: 1722374725 @ https://a.slack-edge.com/bv1-13-br/gantry-v2-shared.464ff8fe94a6bddb533e.min.js?cacheKey=gantry-1781981265:0
+[     870ms] [INFO] Jun-20 16:28:39.605 [URL] https://app.slack.com/client/T07BLFXTP88/C0APGM9JJH2 @ https://a.slack-edge.com/bv1-13-br/gantry-v2-shared.464ff8fe94a6bddb533e.min.js?cacheKey=gantry-1781981265:0
+[     870ms] [INFO] Jun-20 16:28:39.605 [AUTH] Credentials are fresh (psc=1781987164, csc=1781987164) @ https://a.slack-edge.com/bv1-13-br/gantry-v2-shared.464ff8fe94a6bddb533e.min.js?cacheKey=gantry-1781981265:0
+[     871ms] [INFO] Jun-20 16:28:39.605 [LOCAL-CONFIG] ingestIncomingConfig(): processing 101 bytes of data @ https://a.slack-edge.com/bv1-13-br/gantry-v2-shared.464ff8fe94a6bddb533e.min.js?cacheKey=gantry-1781981265:0
+[     871ms] [INFO] Jun-20 16:28:39.605 [LOCAL-CONFIG] No "teams" in new local config. IncomingConfig: . New Config: . Previous Config: . @ https://a.slack-edge.com/bv1-13-br/gantry-v2-shared.464ff8fe94a6bddb533e.min.js?cacheKey=gantry-1781981265:0
+[     871ms] [INFO] Jun-20 16:28:39.605 [LOCAL-CONFIG] ingestIncomingConfig(): teams before: (none), teams now: (no change) @ https://a.slack-edge.com/bv1-13-br/gantry-v2-shared.464ff8fe94a6bddb533e.min.js?cacheKey=gantry-1781981265:0
+[     871ms] [INFO] Jun-20 16:28:39.606 [BOOT] Initial user team ID: undefined @ https://a.slack-edge.com/bv1-13-br/gantry-v2-shared.464ff8fe94a6bddb533e.min.js?cacheKey=gantry-1781981265:0
+[     871ms] [WARNING] Jun-20 16:28:39.606 [AUTH] Not signed into any teams @ https://a.slack-edge.com/bv1-13-br/gantry-v2-shared.464ff8fe94a6bddb533e.min.js?cacheKey=gantry-1781981265:0
+[     871ms] [INFO] Jun-20 16:28:39.606 [AUTH] Navigating to sign-in @ https://a.slack-edge.com/bv1-13-br/gantry-v2-shared.464ff8fe94a6bddb533e.min.js?cacheKey=gantry-1781981265:0
+[     871ms] [INFO] Jun-20 16:28:39.606 [AUTH] Expired team: undefined. Sign in url: /workspace-signin?redir=%2Fgantry%2Fauth%3Fapp%3Dclient%26lc%3D1781987164%26return_to%3D%252Fclient%252FT07BLFXTP88%252FC0APGM9JJH2%26teams%3D @ https://a.slack-edge.com/bv1-13-br/gantry-v2-shared.464ff8fe94a6bddb533e.min.js?cacheKey=gantry-1781981265:0
+[     872ms] [LOG] [WD] All assets have reported back; s: 7; f: 0 @ https://app.slack.com/client/T07BLFXTP88/C0APGM9JJH2:0
+[    1289ms] [LOG] 10 CDN assets loaded OK @ https://app.slack.com/workspace-signin?redir=%2Fgantry%2Fauth%3Fapp%3Dclient%26lc%3D1781987164%26return_to%3D%252Fclient%252FT07BLFXTP88%252FC0APGM9JJH2%26teams%3D:144
+[    1296ms] [INFO] Jun-20 16:28:40.031 [TRACER] Tracing is not sampled by default for this session. @ https://a.slack-edge.com/bv1-13-br/signin-core.cb05e8389e667f98f9f3.primer.min.js:146
+[    1301ms] [WARNING] Error in Optanon wrapper, please review your code. TypeError: Cannot read properties of undefined (reading 'analytics') @ https://cdn.cookielaw.org/scripttemplates/202604.2.0/otBannerSdk.js:6
+[    1304ms] [WARNING] Jun-20 16:28:40.038 TELEMETRY You tried to get a team-specific telemeter but didn’t provide enough context and are getting the generic telemeter instead which is likely not what you want. @ https://a.slack-edge.com/bv1-13-br/signin-core.cb05e8389e667f98f9f3.primer.min.js:146
+[    1319ms] [WARNING] Jun-20 16:28:40.053 TRACES You tried to get a team-specific tracer but didn’t provide enough context and are getting the generic tracer instead which is likely not what you want. @ https://a.slack-edge.com/bv1-13-br/signin-core.cb05e8389e667f98f9f3.primer.min.js:146
+[    1320ms] [WARNING] Jun-20 16:28:40.054 TRACES You tried to get a team-specific tracer but didn’t provide enough context and are getting the generic tracer instead which is likely not what you want. @ https://a.slack-edge.com/bv1-13-br/signin-core.cb05e8389e667f98f9f3.primer.min.js:146
+[    1320ms] [INFO] Jun-20 16:28:40.054 [API-Q] (T00000000) noversion-1781987320.054 signin.findWorkspaces called with reason: get_started_already_signed_into @ https://a.slack-edge.com/bv1-13-br/signin-core.cb05e8389e667f98f9f3.primer.min.js:146
+[    1320ms] [INFO] Jun-20 16:28:40.054 [API-Q] (T00000000) noversion-1781987320.054 signin.findWorkspaces is ENQUEUED @ https://a.slack-edge.com/bv1-13-br/signin-core.cb05e8389e667f98f9f3.primer.min.js:146
+[    1412ms] TypeError: window.lintrk is not a function
+    at <anonymous>:1:8
+    at https://www.googletagmanager.com/gtm.js?id=GTM-KH2LPK:1072:429
+    at PR (https://www.googletagmanager.com/gtm.js?id=GTM-KH2LPK:1074:31)
+    at Nd.OR (https://www.googletagmanager.com/gtm.js?id=GTM-KH2LPK:1071:92)
+    at Nd.<anonymous> (https://www.googletagmanager.com/gtm.js?id=GTM-KH2LPK:444:187)
+    at Od.apply (https://www.googletagmanager.com/gtm.js?id=GTM-KH2LPK:366:466)
+    at hb (https://www.googletagmanager.com/gtm.js?id=GTM-KH2LPK:328:719)
+    at gb (https://www.googletagmanager.com/gtm.js?id=GTM-KH2LPK:328:470)
+    at Nd.<anonymous> (https://www.googletagmanager.com/gtm.js?id=GTM-KH2LPK:390:473)
+    at Od.apply (https://www.googletagmanager.com/gtm.js?id=GTM-KH2LPK:366:466)
+    at hb (https://www.googletagmanager.com/gtm.js?id=GTM-KH2LPK:328:719)
+    at ib.Tq (https://www.googletagmanager.com/gtm.js?id=GTM-KH2LPK:328:1286)
+    at uf (https://www.googletagmanager.com/gtm.js?id=GTM-KH2LPK:401:960)
+    at https://www.googletagmanager.com/gtm.js?id=GTM-KH2LPK:861:315
+    at Rz (https://www.googletagmanager.com/gtm.js?id=GTM-KH2LPK:764:1)
+    at Yz.evaluate (https://www.googletagmanager.com/gtm.js?id=GTM-KH2LPK:769:289)
+[    1412ms] TypeError: window.lintrk is not a function
+    at <anonymous>:1:8
+    at https://www.googletagmanager.com/gtm.js?id=GTM-KH2LPK:1072:429
+    at PR (https://www.googletagmanager.com/gtm.js?id=GTM-KH2LPK:1074:31)
+    at Nd.OR (https://www.googletagmanager.com/gtm.js?id=GTM-KH2LPK:1071:92)
+    at Nd.<anonymous> (https://www.googletagmanager.com/gtm.js?id=GTM-KH2LPK:444:187)
+    at Od.apply (https://www.googletagmanager.com/gtm.js?id=GTM-KH2LPK:366:466)
+    at hb (https://www.googletagmanager.com/gtm.js?id=GTM-KH2LPK:328:719)
+    at gb (https://www.googletagmanager.com/gtm.js?id=GTM-KH2LPK:328:470)
+    at Nd.<anonymous> (https://www.googletagmanager.com/gtm.js?id=GTM-KH2LPK:390:473)
+    at Od.apply (https://www.googletagmanager.com/gtm.js?id=GTM-KH2LPK:366:466)
+    at hb (https://www.googletagmanager.com/gtm.js?id=GTM-KH2LPK:328:719)
+    at ib.Tq (https://www.googletagmanager.com/gtm.js?id=GTM-KH2LPK:328:1286)
+    at uf (https://www.googletagmanager.com/gtm.js?id=GTM-KH2LPK:401:960)
+    at https://www.googletagmanager.com/gtm.js?id=GTM-KH2LPK:861:315
+    at Rz (https://www.googletagmanager.com/gtm.js?id=GTM-KH2LPK:764:1)
+    at Yz.evaluate (https://www.googletagmanager.com/gtm.js?id=GTM-KH2LPK:769:289)
+[    1489ms] [INFO] Jun-20 16:28:40.223 [API-Q] (T00000000) noversion-1781987320.054 signin.findWorkspaces is ACTIVE @ https://a.slack-edge.com/bv1-13-br/signin-core.cb05e8389e667f98f9f3.primer.min.js:146
+[    1558ms] [INFO] Jun-20 16:28:40.293 [API-Q] (T00000000) noversion-1781987320.054 signin.findWorkspaces is RESOLVED @ https://a.slack-edge.com/bv1-13-br/signin-core.cb05e8389e667f98f9f3.primer.min.js:146
+[    1560ms] [WARNING] Jun-20 16:28:40.294 TRACES You tried to get a team-specific tracer but didn’t provide enough context and are getting the generic tracer instead which is likely not what you want. @ https://a.slack-edge.com/bv1-13-br/signin-core.cb05e8389e667f98f9f3.primer.min.js:146
+[    1560ms] [WARNING] Jun-20 16:28:40.294 TRACES You tried to get a team-specific tracer but didn’t provide enough context and are getting the generic tracer instead which is likely not what you want. @ https://a.slack-edge.com/bv1-13-br/signin-core.cb05e8389e667f98f9f3.primer.min.js:146
+[    1560ms] [INFO] Jun-20 16:28:40.294 [API-Q] (T00000000) noversion-1781987320.294 signin.findWorkspaces called with reason: get_started_already_signed_into @ https://a.slack-edge.com/bv1-13-br/signin-core.cb05e8389e667f98f9f3.primer.min.js:146
+[    1560ms] [INFO] Jun-20 16:28:40.294 [API-Q] (T00000000) noversion-1781987320.294 signin.findWorkspaces is ENQUEUED @ https://a.slack-edge.com/bv1-13-br/signin-core.cb05e8389e667f98f9f3.primer.min.js:146
+[    1560ms] [INFO] Jun-20 16:28:40.295 [API-Q] (T00000000) noversion-1781987320.294 signin.findWorkspaces is ACTIVE @ https://a.slack-edge.com/bv1-13-br/signin-core.cb05e8389e667f98f9f3.primer.min.js:146
+[    1603ms] [INFO] Jun-20 16:28:40.338 [API-Q] (T00000000) noversion-1781987320.294 signin.findWorkspaces is RESOLVED @ https://a.slack-edge.com/bv1-13-br/signin-core.cb05e8389e667f98f9f3.primer.min.js:146
